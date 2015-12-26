@@ -30,14 +30,9 @@ function read(files) {
                 .map(() => reader.result)
                 .map(JSON.parse)
                 .onErrorResumeNext(Observable.return({error: 'parse error'}))
-                .map((data) => (
-                    get(data, 'categories.value.id')
-                        ? data
-                        : {error: 'categories criteria required'}
-                ))
                 .do((data) => stream.send(
                     EVENTS.onFileRead,
-                    {name: file.name, data, category: get(data, 'categories.value')}
+                    {name: file.name, data}
                 ));
         }))
     );
@@ -59,18 +54,6 @@ function onDragOver({payload}, state) {
     if (!state.draggedOver) {
         state.draggedOver = true;
     }
-
-    return [state];
-}
-
-function onExistingLoad({payload: {categoryId, existing}}, state) {
-    state.files = map(state.files, (file) => {
-        if (file.data.error || file.category.id != categoryId) {
-            return file;
-        }
-
-        return assign(file, {existing});
-    });
 
     return [state];
 }
