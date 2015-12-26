@@ -12,10 +12,6 @@ function fileComponent(file) {
             style={{width: "100%"}}>
             <a onClick={this.send(EVENTS.onFileClick, {name: file.name})}>
                 {file.name}
-                {file.category
-                    ? ` (${file.category.name} / ${file.category.id})`
-                    : ''
-                }
                 {file.data.error
                     ? <b> ! {file.data.error} !</b>
                     : ''
@@ -141,7 +137,7 @@ export class AppComponent extends React.Component {
                             </ul>
                         </div>)
                     : (<div style={{textAlign: 'center', paddingTop: 100, width: "100%"}}>
-                            <h2>drag brainiac file over here</h2>
+                            <h2>drag json files over here</h2>
                         </div>)}
                 {activeFile
                     ? activeFileComponent.call(this, activeFile)
