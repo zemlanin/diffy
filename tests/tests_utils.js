@@ -1,6 +1,6 @@
 import {getDiff} from '../utils';
 
-describe('UploadCategoryBiglCriteria.utils.getDiff', () => {
+describe('diffy.utils.getDiff', () => {
     const CASES = [
         [
             {a: 1}, null,
